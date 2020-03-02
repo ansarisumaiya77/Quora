@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+<!--    <group android:checkableBehavior="single">-->
+
+<!--        <item-->
+<!--            android:id="@+id/add_family"-->
+<!--            android:title="Family"/>-->
+
+<!--    </group>-->
+
+
+    <item android:title="Family">
+
+        <menu>
+            <item
+                android:id="@+id/see_family"
+                android:title="Family"/>
+            <item
+                android:id="@+id/add_family"
+                android:title="Add Family"/>
+
+        </menu>
+    </item>
+
+    <item android:title="Communicate">
+
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="Logout" />
+
+        </menu>
+    </item>
+
+</menu>

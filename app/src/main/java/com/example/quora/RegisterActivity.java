@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.gms.common.internal.Objects;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText first_name, last_name, phone, email, password, confirm_password;
+    TextInputLayout first_name, last_name, phone, email, password, confirm_password;
+    String firstname, lastname, contact, email_address, pass;
     Button register;
     FirebaseAuth auth;
     FirebaseDatabase db;
@@ -41,20 +44,27 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstname = first_name.getText().toString();
-                String lastname = last_name.getText().toString();
-                String contact = phone.getText().toString();
-                String email_address = email.getText().toString();
-                String pass = password.getText().toString();
-                String c_pass = confirm_password.getText().toString();
-                if(pass.toLowerCase() != c_pass.toLowerCase())
+                if( !validateFirstname() | !validateLastname() | !validatePhone() | !validateEmail() | !validatePassword() | !validateConfirmPassword())
                 {
+                    return;
+                }
+                else {
                     SignUpMethod(firstname, lastname, contact, email_address, pass);
                 }
-                else
-                {
-                    Toast.makeText(RegisterActivity.this, pass +" and "+ c_pass, Toast.LENGTH_LONG).show();
-                }
+//                firstname = first_name.getText().toString();
+//                lastname = last_name.getText().toString();
+//                contact = phone.getText().toString();
+//                email_address = email.getText().toString();
+//                pass = password.getText().toString();
+//                c_pass = confirm_password.getText().toString();
+//                if(pass.toLowerCase() != c_pass.toLowerCase())
+//                {
+//                    SignUpMethod(firstname, lastname, contact, email_address, pass);
+//                }
+//                else
+//                {
+//                    Toast.makeText(RegisterActivity.this, pass +" and "+ c_pass, Toast.LENGTH_LONG).show();
+//                }
             }
         });
 
@@ -88,5 +98,84 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.txt_password);
         confirm_password = findViewById(R.id.confirm_password);
         register = findViewById(R.id.register_btn);
+    }
+
+    private boolean validateFirstname() {
+        firstname = first_name.getEditText().getText().toString().trim();
+
+        if (firstname.isEmpty()) {
+            first_name.setError("Field can't be empty");
+            return false;
+        } else if (firstname.length() > 8) {
+            first_name.setError("Username too long");
+            return false;
+        } else {
+            first_name.setError(null);
+            return true;
+        }
+    }
+    private boolean validateLastname() {
+        lastname = last_name.getEditText().getText().toString().trim();
+
+        if (lastname.isEmpty()) {
+            last_name.setError("Field can't be empty");
+            return false;
+        } else if (lastname.length() > 8) {
+            last_name.setError("Username too long");
+            return false;
+        } else {
+            last_name.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePhone() {
+        contact = phone.getEditText().getText().toString().trim();
+
+        if (contact.isEmpty()) {
+            phone.setError("Field can't be empty");
+            return false;
+        } else {
+            phone.setError(null);
+            return true;
+        }
+    }
+    private boolean validateEmail() {
+        email_address = email.getEditText().getText().toString().trim();
+
+        if (email_address.isEmpty()) {
+            email.setError("Field can't be empty");
+            return false;
+        } else {
+            email.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePassword() {
+        pass = password.getEditText().getText().toString().trim();
+
+        if (pass.isEmpty()) {
+            password.setError("Field can't be empty");
+            return false;
+        } else {
+            password.setError(null);
+            return true;
+        }
+    }
+    private boolean validateConfirmPassword() {
+        String passwordInput = password.getEditText().getText().toString().trim();
+        String confirmPasswordInput = confirm_password.getEditText().getText().toString().trim();
+
+        if (confirmPasswordInput.isEmpty()) {
+            confirm_password.setError("Field can't be empty");
+            return false;
+        }
+        else if(passwordInput != confirmPasswordInput){
+            confirm_password.setError("Password doesn't match");
+            return false;
+        }
+        else {
+            confirm_password.setError(null);
+            return true;
+        }
     }
 }

@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">Quora</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="relation">
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Son</item>
+        <item>Daughter</item>
+        <item>Sister</item>
+        <item>Brother</item>
+        <item>Aunt</item>
+        <item>Uncle</item>
+        <item>Niece</item>
+        <item>Nephew</item>
+        <item>Cousin</item>
+        <item>GrandFather</item>
+        <item>GrandMother</item>
+        <item>GrandSon</item>
+        <item>GrandDaughter</item>
+        <item>StepFather</item>
+        <item>StepMother</item>
+        <item>StepSon</item>
+        <item>StepDaughter</item>
+        <item>StepSister</item>
+        <item>StepBrother</item>
+        <item>Father-in-Law</item>
+        <item>Mother-in-Law</item>
+        <item>Son-in-Law</item>
+        <item>Daughter-in-Law</item>
+        <item>Sister-in-Law</item>
+        <item>Brother-in-Law</item>
+    </string-array>
+
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+
 </resources>

@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextView create;
-    EditText txt_email, txt_password;
+    TextInputLayout txt_email, txt_password;
+    String email_address, pass;
     Button login;
     FirebaseAuth auth;
 
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(auth.getCurrentUser() != null)
         {
+            finish();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
 
@@ -47,15 +51,22 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = txt_email.getText().toString();
-                String password = txt_password.getText().toString();
-                if(!email.isEmpty() && !password.isEmpty()) {
-                    Signin(email, password);
-                }
-                else
+                if(!validateEmail() | !validatePassword())
                 {
-                    Toast.makeText(LoginActivity.this, "Please fill all the fields properly", Toast.LENGTH_LONG).show();
+                    return;
                 }
+                else {
+                    Signin(email_address, pass);
+                }
+//                String email = txt_email.getText().toString();
+//                String password = txt_password.getText().toString();
+//                if(!email.isEmpty() && !password.isEmpty()) {
+//                    Signin(email, password);
+//                }
+//                else
+//                {
+//                    Toast.makeText(LoginActivity.this, "Please fill all the fields properly", Toast.LENGTH_LONG).show();
+//                }
             }
         });
 
@@ -84,4 +95,28 @@ public class LoginActivity extends AppCompatActivity {
         txt_password = findViewById(R.id.txt_password);
         login = findViewById(R.id.login_btn);
     }
+
+    private boolean validateEmail() {
+        email_address = txt_email.getEditText().getText().toString().trim();
+
+        if (email_address.isEmpty()) {
+            txt_email.setError("Field can't be empty");
+            return false;
+        } else {
+            txt_email.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePassword() {
+        pass = txt_password.getEditText().getText().toString().trim();
+
+        if (pass.isEmpty()) {
+            txt_password.setError("Field can't be empty");
+            return false;
+        } else {
+            txt_password.setError(null);
+            return true;
+        }
+    }
+
 }
