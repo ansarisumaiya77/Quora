@@ -12,7 +12,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.quora.Fragments.AddFamilyFragment;
+import com.example.quora.Fragments.EarthquakeFragment;
 import com.example.quora.Fragments.FamilyFragment;
 import com.example.quora.Models.Family;
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -43,6 +53,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
 
+
+        if(auth.getCurrentUser() == null)
+        {
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
         //Toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Quora");
@@ -54,10 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
     }
 
@@ -80,9 +95,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.add_family:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AddFamilyFragment()).commit();
+                if(drawer.isDrawerOpen(GravityCompat.START))
+                {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
                 break;
             case R.id.see_family:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FamilyFragment()).commit();
+                if(drawer.isDrawerOpen(GravityCompat.START))
+                {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+                break;
+            case R.id.see_earthquake:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new EarthquakeFragment()).commit();
+                if(drawer.isDrawerOpen(GravityCompat.START))
+                {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
                 break;
             case R.id.logout:
                 auth.signOut();

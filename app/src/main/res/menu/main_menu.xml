@@ -21,6 +21,9 @@
             <item
                 android:id="@+id/add_family"
                 android:title="Add Family"/>
+            <item
+                android:id="@+id/see_earthquake"
+                android:title="Earthquake"/>
 
         </menu>
     </item>

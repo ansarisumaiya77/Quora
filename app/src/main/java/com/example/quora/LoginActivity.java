@@ -33,12 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        if(auth.getCurrentUser() != null)
-        {
-            finish();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        }
-
         InitUI();
 
         create.setOnClickListener(new View.OnClickListener() {
@@ -48,14 +42,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!validateEmail() | !validatePassword())
-                {
-                    return;
-                }
-                else {
+                if (!validateEmail() | !validatePassword()) {
+
+//                    return;
+                } else {
+
                     Signin(email_address, pass);
                 }
 //                String email = txt_email.getText().toString();
@@ -71,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
     private void Signin(String email, String password) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -82,10 +76,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                 }
             }
         });
+//        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if(task.isSuccessful())
+//                {
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                }
+//                else
+//                {
+//                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
     }
 
     private void InitUI()

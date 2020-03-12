@@ -51,27 +51,14 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
                     SignUpMethod(firstname, lastname, contact, email_address, pass);
                 }
-//                firstname = first_name.getText().toString();
-//                lastname = last_name.getText().toString();
-//                contact = phone.getText().toString();
-//                email_address = email.getText().toString();
-//                pass = password.getText().toString();
-//                c_pass = confirm_password.getText().toString();
-//                if(pass.toLowerCase() != c_pass.toLowerCase())
-//                {
-//                    SignUpMethod(firstname, lastname, contact, email_address, pass);
-//                }
-//                else
-//                {
-//                    Toast.makeText(RegisterActivity.this, pass +" and "+ c_pass, Toast.LENGTH_LONG).show();
-//                }
+
             }
         });
 
     }
 
     private void SignUpMethod(final String firstname, final String lastname, final String contact, String email_address, String pass) {
-        auth.createUserWithEmailAndPassword(email_address, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(email_address, pass).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
@@ -169,7 +156,7 @@ public class RegisterActivity extends AppCompatActivity {
             confirm_password.setError("Field can't be empty");
             return false;
         }
-        else if(passwordInput != confirmPasswordInput){
+        else if(!passwordInput.equals(confirmPasswordInput)){
             confirm_password.setError("Password doesn't match");
             return false;
         }
