@@ -60,7 +60,7 @@ public class FamilyFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-//                families.clear();
+                fame.clear();
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Family family = snap.getValue(Family.class);

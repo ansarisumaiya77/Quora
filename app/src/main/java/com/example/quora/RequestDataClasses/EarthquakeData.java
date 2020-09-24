@@ -21,7 +21,7 @@ public class EarthquakeData {
 
     ArrayList<Earthquake> earthquakes;
     private Context context;
-    String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2019-01-02&minmagnitude=7&limit=25";
+    String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2019-01-02&minmagnitude=7";
 
     public EarthquakeData(Context _context)
     {

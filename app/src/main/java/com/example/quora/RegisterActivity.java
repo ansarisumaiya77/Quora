@@ -67,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                     reference.child(key).child("First Name").setValue(firstname);
                     reference.child(key).child("Last Name").setValue(lastname);
                     reference.child(key).child("Contact").setValue(contact);
+                    reference.child(key).child("Role").setValue("User");
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                 }
                 else
